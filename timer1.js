@@ -1,21 +1,8 @@
 let times = process.argv.splice(2);
-times = times.sort((a, b) => a - b)
-let delay = Number(times[0]);
-if (!delay)
-{
-  return;
-}
-times.map(interval => {
-  let time = Number(interval);
-  setTimeout((time) => {
+times = times.filter(time => !isNaN(time)).filter(time => time >= 0).sort((a, b) => a - b);
+times.map((time) => {
+  setTimeout(() => {
     console.log("\007");
-  }, delay)
-
-  delay = delay + time * 1000;
-})
-
-// const alarmDing = () => {
-//   console.log("\007");
-// }
-
-// alarmDing();
+    console.log(`ding at ${time} seconds`);
+  }, time * 1000);
+});
